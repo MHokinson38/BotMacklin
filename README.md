@@ -7,7 +7,7 @@
 
 ## Wordle Wrecker 
 * Analyzes English Dictionary to help figure out most likely words (based on placement of letters and clues already revealed)
-* When finding matches, it will suggest words based on frequency (TODO, need big dataset for that) 
+* When finding matches, it will find probabilies of letters being in some place (i.e. the letter r being the second letter), and then find the most likely words based on that. I'm not using any sort of usage frequency, since I don't want common words to dominate suggestions (I don't think common words should have any pull). I might give them some weight in the future.
 
 #### Wordle Help Input 
 * Input had two main parts, which is set up because there is currently nothing to keep unique sessions going between users for help (if being used through BotMacklin) 
