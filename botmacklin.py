@@ -1,8 +1,10 @@
 # bot.py
 import os
+from pickle import NONE
 
 import discord
 from dotenv import load_dotenv
+from WordleWrecker.wordle_wrecker import *
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -43,6 +45,15 @@ async def help_response(message):
         * !sussy - Kinda sus tbh 
         * !sayittomyface - What do you think 
         * !veryinteresting - Interesting
+
+        Wordle Help! Send a dm to me with the following format:
+        * for unknown, grey letters. Caps for green, lowercase for yellow. 
+        Following the guess, put a comma followed by the greyed out letters for that guess. 
+        Put each guess on a new line. 
+
+        Ex. If I guess trace then prion, I might have: 
+        *R***,tce
+        PR*o*,in
     """)
 
 async def sussy_response(message):
@@ -57,17 +68,44 @@ async def say_it_to_my_face(message):
         await message.channel.send(file=milo)
 
 async def verry_interesting(message):
-    await message.channel.send('Verrry interesting') 
+    await message.channel.send('Verrry interesting')
+
+async def wordle_wrecker_call(message):
+    message_content = str(message.content)
+    # Generate the model 
+    with open("WordleWrecker\data\\five_letter_words.txt", "r") as word_list_f:
+        word_list = word_list_f.readlines()
+        word_list = [word[:-1] for word in word_list]
+    model = generate_model(word_list)
+
+    white_list = None
+    black_list = None
+    for guess in message_content.split("\n"):
+        clue_string, white_list, black_list = parse_input(guess, white_list, black_list)
+        debug(f"Parsed input. Clue: {clue_string}, White List: {white_list}, Black List: {black_list}")
+
+    matches = sort_through_clues(word_list, clue_string, white_list, black_list)
+    best_matches = rank_matches(model, matches, 10)
+        
+    await message.author.send(f"""Here are the best matches (the higher the number (smaller absolute value because negative) are the best guesses.
+                                  But, many of these are likely very close in magnitude, so pick your favorite. 
+                                  Best 10 words: {best_matches}""") 
 
 
 # Message Response 
 @client.event
 async def on_message(message):
     command = message.content
-    debug(f"Message content: {message.content} from {message.author}")
-
     if str(message.author) == BOT_MACKLIN:
         return
+        
+    debug(f"Message content: {message.content} from {message.author}. It was {message.channel.type}")
+
+    if (str(message.channel.type) == "private"):
+        try:
+            await wordle_wrecker_call(message)
+        except:
+            debug(f"Weird thing went wrong but it's probably ok lol")
 
     try:
         if SUSSY_COMMAND in command:

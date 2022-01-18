@@ -97,7 +97,6 @@ def parse_input(input_string, white_list, black_list):
         black_list = set(splits[1].lower()) if len(splits) == 2 else None
     else:
         black_list = black_list.union(set(splits[1].lower()))
-        #print(f"Joining new black_list ({set(splits[1].lower())}) to previous black_list, giving us {black_list}")
 
     if white_list is None:
         white_list = {}
