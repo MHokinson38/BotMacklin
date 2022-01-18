@@ -3,7 +3,7 @@
 
 ## Main Uses 
 * Sending gifs and messaged in response to calling set commands in Discord chat 
-* Wordle Wrecker (See Below) 
+* Wordle Wrecker (See Below) through DM's
 
 ## Wordle Wrecker 
 * Analyzes English Dictionary to help figure out most likely words (based on placement of letters and clues already revealed)
