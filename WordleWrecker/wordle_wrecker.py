@@ -87,7 +87,9 @@ def rank_matches(model, matched_words, count):
 # Parses the input string, creating the black_list, white_list, and clue strings 
 # Keeps runnign white list for better guessing, but that requires a runnign session 
 def parse_input(input_string, white_list, black_list):
-    splits = input_string.split(',')
+    # Escape all of the '\' characters on the input string, and then join them again 
+    no_escapes = ''.join(input_string.split('\\'))
+    splits = no_escapes.split(',')
 
     if len(splits) > 2 or len(splits[0]) != 5:
         raise ValueError("Input clue string is not formatted properly")
