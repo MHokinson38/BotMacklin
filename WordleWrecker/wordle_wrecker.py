@@ -6,7 +6,7 @@
 import numpy as np
 
 # Constants 
-FIVE_LETTER_WORDS_PATH = 'data\\five_letter_words.txt'
+FIVE_LETTER_WORDS_PATH = 'data/five_letter_words.txt'
 TOTAL_WORD_COUNT = 15918                                # line count for above text file 
 
 UPPER_CASE_LETTERS = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"}
