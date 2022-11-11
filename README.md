@@ -2,7 +2,7 @@
 ### Discord Bot for personal use 
 
 ## Main Uses 
-* Sending gifs and messaged in response to calling set commands in Discord chat 
+* Sending gifs and messages in response to calling set commands in Discord chat 
 * Wordle Wrecker (See Below) through DM's
 
 ## Wordle Wrecker 
